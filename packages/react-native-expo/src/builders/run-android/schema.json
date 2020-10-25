@@ -1,0 +1,6 @@
+{
+  "title": "Run Android application",
+  "description": "Run Android target options",
+  "type": "object",
+  "properties": {}
+}

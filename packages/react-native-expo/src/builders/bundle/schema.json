@@ -1,0 +1,15 @@
+{
+  "title": "JS Bundle for React Native",
+  "description": "JS Bundle target options",
+  "type": "object",
+  "properties": {
+    "platform": {
+      "description": "Platform to build for (ios, android).",
+      "anyOf": [
+        {
+          "enum": ["android", "ios"]
+        }
+      ]
+    }
+  }
+}

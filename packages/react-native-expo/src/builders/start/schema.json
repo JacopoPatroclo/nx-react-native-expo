@@ -1,0 +1,6 @@
+{
+  "title": "JS Bundle for React Native",
+  "description": "JS Bundle target options",
+  "type": "object",
+  "properties": {}
+}

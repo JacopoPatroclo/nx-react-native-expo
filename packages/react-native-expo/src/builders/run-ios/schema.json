@@ -1,0 +1,6 @@
+{
+  "title": "Run iOS application",
+  "description": "Run iOS target options",
+  "type": "object",
+  "properties": {}
+}

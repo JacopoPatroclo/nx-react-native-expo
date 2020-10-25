@@ -1,0 +1,64 @@
+{
+  "version": 1,
+  "projects": {
+    "react-native-expo": {
+      "root": "packages/react-native-expo",
+      "sourceRoot": "packages/react-native-expo/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "packages/react-native-expo/tsconfig.lib.json",
+              "packages/react-native-expo/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!packages/react-native-expo/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "packages/react-native-expo/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "builder": "@nrwl/node:package",
+          "options": {
+            "outputPath": "dist/packages/react-native-expo",
+            "tsConfig": "packages/react-native-expo/tsconfig.lib.json",
+            "packageJson": "packages/react-native-expo/package.json",
+            "main": "packages/react-native-expo/src/index.ts",
+            "assets": [
+              "packages/react-native-expo/*.md",
+              {
+                "input": "./packages/react-native-expo/src",
+                "glob": "**/*.!(ts)",
+                "output": "./src"
+              },
+              {
+                "input": "./packages/react-native-expo",
+                "glob": "collection.json",
+                "output": "."
+              },
+              {
+                "input": "./packages/react-native-expo",
+                "glob": "builders.json",
+                "output": "."
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/workspace"
+  }
+}
