@@ -8,16 +8,15 @@
       "schematics": {},
       "architect": {
         "lint": {
-          "builder": "@nrwl/linter:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "linter": "eslint",
-            "tsConfig": [
-              "packages/react-native-expo/tsconfig.lib.json",
-              "packages/react-native-expo/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!packages/react-native-expo/**/*"
+            "lintFilePatterns": [
+              "packages/react-native-expo/**/*.ts",
+              "packages/react-native-expo/**/*.spec.ts",
+              "packages/react-native-expo/**/*.spec.tsx",
+              "packages/react-native-expo/**/*.spec.js",
+              "packages/react-native-expo/**/*.spec.jsx",
+              "packages/react-native-expo/**/*.d.ts"
             ]
           }
         },

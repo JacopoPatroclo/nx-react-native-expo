@@ -27,28 +27,30 @@
   },
   "private": true,
   "devDependencies": {
-    "metro-config": "^0.63.0",
-    "@nrwl/eslint-plugin-nx": "10.2.1",
-    "@nrwl/jest": "10.2.1",
-    "@nrwl/nx-plugin": "10.2.1",
-    "@nrwl/react": "10.2.1",
-    "@nrwl/workspace": "10.2.1",
+    "@nrwl/cli": "10.3.2",
+    "@nrwl/eslint-plugin-nx": "10.3.2",
+    "@nrwl/jest": "10.3.2",
+    "@nrwl/nx-plugin": "10.3.2",
+    "@nrwl/react": "10.3.2",
+    "@nrwl/workspace": "10.3.2",
     "@types/jest": "26.0.8",
     "@types/node": "~8.9.4",
-    "@typescript-eslint/eslint-plugin": "2.19.2",
-    "@typescript-eslint/parser": "2.19.2",
+    "@typescript-eslint/eslint-plugin": "4.3.0",
+    "@typescript-eslint/parser": "4.3.0",
     "dotenv": "6.2.0",
-    "eslint": "6.8.0",
+    "eslint": "7.10.0",
     "eslint-config-prettier": "6.0.0",
     "jest": "26.2.2",
+    "metro-config": "^0.63.0",
     "metro-resolver": "0.58.0",
     "prettier": "2.0.4",
-    "ts-jest": "26.1.4",
+    "ts-jest": "26.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~6.0.0",
-    "typescript": "~3.9.3"
+    "typescript": "4.0.5"
   },
   "resolutions": {
     "rxjs": "6.6.0"
-  }
+  },
+  "dependencies": {}
 }

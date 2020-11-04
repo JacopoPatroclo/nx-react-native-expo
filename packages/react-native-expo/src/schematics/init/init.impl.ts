@@ -18,8 +18,11 @@ import {
   reactNativeWebVersion,
   typesReactDomVersion,
   expoCliVersion,
+  jestReactNativeVersion,
+  testingLibraryJestNativeVersion,
+  testingLibraryReactNativeVersion,
   reactTestRendererVersion,
-  typesReactTestRendererVersion,
+  reactTestRendererTypesVersion,
 } from '../../utils/versions';
 import { JsonObject } from '@angular-devkit/core';
 import ignore from 'ignore';
@@ -49,9 +52,12 @@ export function addDependencies(): Rule {
       '@types/react': typesReactVersion,
       '@types/react-native': typesReactNativeVersion,
       '@types/react-dom': typesReactDomVersion,
-      '@types/react-test-renderer': typesReactTestRendererVersion,
-      'react-test-renderer': reactTestRendererVersion,
       'expo-cli': expoCliVersion,
+      '@testing-library/react-native': testingLibraryReactNativeVersion,
+      '@testing-library/jest-native': testingLibraryJestNativeVersion,
+      'jest-react-native': jestReactNativeVersion,
+      'react-test-renderer': reactTestRendererVersion,
+      '@types/react-test-renderer': reactTestRendererTypesVersion,
     }
   );
 }
