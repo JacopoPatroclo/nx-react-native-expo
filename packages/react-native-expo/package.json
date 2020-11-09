@@ -1,6 +1,6 @@
 {
   "name": "nx-react-native-expo",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Expo Managed Plugin for Nx",
   "repository": {
     "type": "git",
