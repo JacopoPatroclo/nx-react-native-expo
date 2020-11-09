@@ -36,6 +36,7 @@
     "@nrwl/jest": "*",
     "@nrwl/react": "*",
     "@angular-devkit/schematics": "10.0.3",
-    "metro-resolver": "0.63.0"
+    "metro-resolver": "0.63.0",
+    "tsconfig-paths-webpack-plugin": "3.3.0"
   }
 }

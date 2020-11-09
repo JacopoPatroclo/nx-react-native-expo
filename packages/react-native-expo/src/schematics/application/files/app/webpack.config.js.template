@@ -1,14 +1,7 @@
 const createExpoWebpackConfigAsync = require('@expo/webpack-config');
-const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+const { WebpackConfigNxExpo } = require('nx-react-native-expo');
 
 module.exports = async function(env, argv) {
   const config = await createExpoWebpackConfigAsync(env, argv);
-  
-  config.resolve = {
-    ...config.resolve,
-    plugins: [
-      ...(config.resolve.plugins || []),
-      new TsconfigPathsPlugin()]
-  }
-  return config;
+  return WebpackConfigNxExpo(config);
 };

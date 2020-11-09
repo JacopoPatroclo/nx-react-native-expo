@@ -1,1 +1,1 @@
-export * from './plugins/with-nx-metro';
+export * from './plugins';
