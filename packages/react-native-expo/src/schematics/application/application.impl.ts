@@ -110,6 +110,11 @@ function addProject(options: NormalizedSchema): Rule {
       options: {},
     };
 
+    architect['run-web'] = {
+      builder: 'nx-react-native-expo:run-web',
+      options: {},
+    };
+
     architect.lint = generateProjectLint(
       normalize(options.appProjectRoot),
       join(normalize(options.appProjectRoot), 'tsconfig.json'),

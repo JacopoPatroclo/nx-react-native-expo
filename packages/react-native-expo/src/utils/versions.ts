@@ -16,3 +16,5 @@ export const testingLibraryJestNativeVersion = '3.4.3';
 export const jestReactNativeVersion = '18.0.0';
 export const reactTestRendererVersion = '17.0.1';
 export const reactTestRendererTypesVersion = '16.9.3';
+export const tsconfigPathWebpackPluginVersion = '3.3.0';
+export const expoWebpackConfigVersion = '0.12.43';

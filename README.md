@@ -57,6 +57,12 @@ iOS:
 npx nx run-ios <app-name>
 ```
 
+Web:
+
+```
+npx nx run-web <app-name>
+```
+
 ### Build the app
 
 ```

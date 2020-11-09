@@ -6,6 +6,11 @@
       "schema": "./src/builders/run-ios/schema.json",
       "description": "Runs iOS application."
     },
+    "run-web": {
+      "implementation": "./src/builders/run-web/run-web.impl",
+      "schema": "./src/builders/run-web/schema.json",
+      "description": "Runs Web application."
+    },
     "run-android": {
       "implementation": "./src/builders/run-android/run-android.impl",
       "schema": "./src/builders/run-android/schema.json",

@@ -1,0 +1,6 @@
+{
+  "title": "Run Web application",
+  "description": "Run Web target options",
+  "type": "object",
+  "properties": {}
+}

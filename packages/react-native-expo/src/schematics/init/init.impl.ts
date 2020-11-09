@@ -23,6 +23,8 @@ import {
   testingLibraryReactNativeVersion,
   reactTestRendererVersion,
   reactTestRendererTypesVersion,
+  tsconfigPathWebpackPluginVersion,
+  expoWebpackConfigVersion,
 } from '../../utils/versions';
 import { JsonObject } from '@angular-devkit/core';
 import ignore from 'ignore';
@@ -58,6 +60,8 @@ export function addDependencies(): Rule {
       'jest-react-native': jestReactNativeVersion,
       'react-test-renderer': reactTestRendererVersion,
       '@types/react-test-renderer': reactTestRendererTypesVersion,
+      'tsconfig-paths-webpack-plugin': tsconfigPathWebpackPluginVersion,
+      '@expo/webpack-config': expoWebpackConfigVersion,
     }
   );
 }
