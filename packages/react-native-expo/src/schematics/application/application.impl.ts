@@ -115,6 +115,11 @@ function addProject(options: NormalizedSchema): Rule {
       options: {},
     };
 
+    architect['publish'] = {
+      builder: 'nx-react-native-expo:publish',
+      options: {},
+    };
+
     architect.lint = generateProjectLint(
       normalize(options.appProjectRoot),
       join(normalize(options.appProjectRoot), 'tsconfig.json'),
