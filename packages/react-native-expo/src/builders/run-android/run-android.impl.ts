@@ -28,7 +28,7 @@ function run(
   return from(getProjectRoot(context)).pipe(
     tap((root) => ensureNodeModulesSymlink(context.workspaceRoot, root)),
     switchMap((root) =>
-      from(runCliRunIOS(context.workspaceRoot, root, options))
+      from(runCliRunAndroid(context.workspaceRoot, root, options))
     ),
     map(() => {
       return {
@@ -38,11 +38,11 @@ function run(
   );
 }
 
-function runCliRunIOS(workspaceRoot, projectRoot, options) {
+function runCliRunAndroid(workspaceRoot, projectRoot, options) {
   return new Promise((resolve, reject) => {
     const cp = fork(
       join(workspaceRoot, '/node_modules/expo/bin/cli.js'),
-      ['start --android', ...createRunIOSOptions(options)],
+      ['start', '--android', ...createRunAndroidOptions(options)],
       { cwd: projectRoot }
     );
     cp.on('error', (err) => {
@@ -58,7 +58,7 @@ function runCliRunIOS(workspaceRoot, projectRoot, options) {
   });
 }
 
-function createRunIOSOptions(options) {
+function createRunAndroidOptions(options) {
   return Object.keys(options).reduce((acc, k) => {
     if (options[k]) acc.push(`--${k}`, options[k]);
     return acc;
