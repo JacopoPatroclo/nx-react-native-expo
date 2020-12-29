@@ -42,7 +42,7 @@ function runCliRunIOS(workspaceRoot, projectRoot, options) {
   return new Promise((resolve, reject) => {
     const cp = fork(
       join(workspaceRoot, '/node_modules/expo/bin/cli.js'),
-      ['start --ios', ...createRunIOSOptions(options)],
+      ['start --android', ...createRunIOSOptions(options)],
       { cwd: projectRoot }
     );
     cp.on('error', (err) => {
