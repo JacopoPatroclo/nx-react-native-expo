@@ -51,5 +51,7 @@
   "resolutions": {
     "rxjs": "6.6.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "chalk": "^4.1.0"
+  }
 }
