@@ -10,6 +10,7 @@ export const expoStatusBarVersion = '1.0.2';
 export const reactDomVersion = '16.13.1';
 export const reactNativeWebVersion = '0.13.12';
 export const typesReactDomVersion = '16.9.8';
+// TODO JM: Update this to 4.0.17
 export const expoCliVersion = '3.28.5';
 export const testingLibraryReactNativeVersion = '7.1.0';
 export const testingLibraryJestNativeVersion = '3.4.3';
