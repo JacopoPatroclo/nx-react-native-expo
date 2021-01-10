@@ -20,17 +20,18 @@
     "format:write": "nx format:write",
     "format:check": "nx format:check",
     "update": "nx migrate latest",
-    "workspace-schematic": "nx workspace-schematic",
     "dep-graph": "nx dep-graph",
-    "help": "nx help"
+    "help": "nx help",
+    "workspace-generator": "nx workspace-generator"
   },
   "private": true,
   "devDependencies": {
-    "@nrwl/cli": "10.3.2",
+    "@nrwl/cli": "11.1.1",
     "@nrwl/eslint-plugin-nx": "11.1.1",
     "@nrwl/jest": "11.1.1",
     "@nrwl/nx-plugin": "11.1.1",
     "@nrwl/react": "11.1.1",
+    "@nrwl/tao": "11.1.1",
     "@nrwl/workspace": "11.1.1",
     "@types/chalk": "^2.2.0",
     "@types/jest": "26.0.8",
@@ -52,5 +53,6 @@
   },
   "resolutions": {
     "rxjs": "6.6.0"
-  }
+  },
+  "dependencies": {}
 }
