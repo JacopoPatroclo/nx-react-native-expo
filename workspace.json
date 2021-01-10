@@ -25,7 +25,8 @@
           "options": {
             "jestConfig": "packages/react-native-expo/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/packages/react-native-expo"]
         },
         "build": {
           "builder": "@nrwl/node:package",
@@ -52,7 +53,8 @@
                 "output": "."
               }
             ]
-          }
+          },
+          "outputs": ["{options.outputPath}"]
         }
       }
     }

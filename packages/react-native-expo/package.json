@@ -24,7 +24,7 @@
   "homepage": "https://nx.dev",
   "builders": "./builders.json",
   "schematics": "./collection.json",
-  "ng-update": {
+  "nx-migrate": {
     "requirements": {},
     "migrations": "./migrations.json"
   },
