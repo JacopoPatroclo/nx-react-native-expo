@@ -7,7 +7,7 @@
       "description": "Platform to build for (ios, android).",
       "anyOf": [
         {
-          "enum": ["android", "ios"]
+          "enum": ["android", "ios", "web"]
         }
       ]
     }
