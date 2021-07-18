@@ -26,7 +26,7 @@ npx create-nx-workspace --cli=nx --preset=empty
 npm install --save-dev nx-react-native-expo
 
 # Using yarn
-yarn -D nx-react-native-expo
+yarn add -D nx-react-native-expo
 ```
 
 ### Create an app
