@@ -69,6 +69,7 @@ npx nx run-web <app-name>
 npx nx bundle <app-name>
 npx nx bundle <app-name> --platform=ios
 npx nx bundle <app-name> --platform=android
+npx nx bundle <app-name> --platform=web
 ```
 
 ## Using components from React library
