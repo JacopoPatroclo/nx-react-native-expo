@@ -1,5 +1,5 @@
 import { convertNxGenerator, GeneratorCallback, Tree } from '@nrwl/devkit';
-import { libraryGenerator } from '@nrwl/workspace';
+import { libraryGenerator } from '@nrwl/react';
 
 async function reactNativeExpoInitGenerator(
   host: Tree,
