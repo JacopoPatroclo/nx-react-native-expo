@@ -1,11 +1,3 @@
-import { chain, Rule } from '@angular-devkit/schematics';
-import {
-  addDepsToPackageJson,
-  updateJsonInTree,
-  addPackageWithInit,
-  updateWorkspace,
-} from '@nrwl/workspace';
-import { Schema } from './schema';
 import {
   nxVersion,
   reactVersion,
@@ -26,21 +18,39 @@ import {
   tsconfigPathWebpackPluginVersion,
   expoWebpackConfigVersion,
 } from '../../utils/versions';
-import { JsonObject } from '@angular-devkit/core';
-import ignore from 'ignore';
+import { setDefaultCollection } from '@nrwl/workspace/src/utilities/set-default-collection';
+import { runTasksInSerial } from '@nrwl/workspace/src/utilities/run-tasks-in-serial';
+import {
+  convertNxGenerator,
+  formatFiles,
+  removeDependenciesFromPackageJson,
+  Tree,
+  addDependenciesToPackageJson,
+} from '@nrwl/devkit';
+import { jestInitGenerator } from '@nrwl/jest';
+import { Schema } from './schema';
+import { addGitIgnoreEntry } from './lib/add-gitignore-entry';
 
-export default function (schema: Schema) {
-  return chain([
-    setWorkspaceDefaults(),
-    addPackageWithInit('@nrwl/jest'),
-    addDependencies(),
-    updateGitIgnore(schema.appProjectRoot),
-    moveDependency(),
-  ]);
+async function reactNativeExpoInitGenerator(host: Tree, schema: Schema) {
+  setDefaultCollection(host, 'nx-react-native-expo');
+  addGitIgnoreEntry(host);
+
+  const tasks = [moveDependency(host), updateDependencies(host)];
+
+  if (!schema.unitTestRunner || schema.unitTestRunner === 'jest') {
+    const jestTask = jestInitGenerator(host, {});
+    tasks.push(jestTask);
+  }
+
+  if (!schema.skipFormat) {
+    await formatFiles(host);
+  }
+
+  return runTasksInSerial(...tasks);
 }
-
-export function addDependencies(): Rule {
-  return addDepsToPackageJson(
+export function updateDependencies(host: Tree) {
+  return addDependenciesToPackageJson(
+    host,
     {
       expo: expoVersion,
       'expo-status-bar': expoStatusBarVersion,
@@ -66,48 +76,11 @@ export function addDependencies(): Rule {
   );
 }
 
-function moveDependency(): Rule {
-  return updateJsonInTree('package.json', (json) => {
-    json.dependencies = json.dependencies || {};
-
-    delete json.dependencies['@nrwl/react'];
-    return json;
-  });
+function moveDependency(host: Tree) {
+  return removeDependenciesFromPackageJson(host, ['@nrwl/react'], []);
 }
 
-function setWorkspaceDefaults(): Rule {
-  return updateWorkspace((workspace) => {
-    workspace.extensions.cli = workspace.extensions.cli || {};
-    const defaultCollection: string =
-      workspace.extensions.cli &&
-      ((workspace.extensions.cli as JsonObject).defaultCollection as string);
-
-    if (!defaultCollection) {
-      (workspace.extensions.cli as JsonObject).defaultCollection =
-        'nx-react-native-expo';
-    }
-  });
-}
-
-function updateGitIgnore(appProjectRoot: string): Rule {
-  return (host) => {
-    if (!host.exists('.gitignore')) {
-      return;
-    }
-
-    const ig = ignore();
-    ig.add(host.read('.gitignore').toString());
-
-    let updateContent = `${appProjectRoot}/node_modules\n`;
-
-    if (!ig.ignores(`.expo-assets/example.json`)) {
-      updateContent = `.expo*\nnpm-debug.*\n*.jks\n*.p8\n*.p12\n*.key\n*.mobileprovision\n*.orig.*\nweb-build/\n${updateContent}`;
-    }
-
-    const content = `${host
-      .read('.gitignore')!
-      .toString('utf-8')
-      .trimRight()}\n${updateContent}`;
-    host.overwrite('.gitignore', content);
-  };
-}
+export default reactNativeExpoInitGenerator;
+export const reactNativeInitSchematic = convertNxGenerator(
+  reactNativeExpoInitGenerator
+);

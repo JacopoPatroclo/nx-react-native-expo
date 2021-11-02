@@ -18,7 +18,8 @@
               "packages/react-native-expo/**/*.spec.jsx",
               "packages/react-native-expo/**/*.d.ts"
             ]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -34,7 +35,7 @@
             "outputPath": "dist/packages/react-native-expo",
             "tsConfig": "packages/react-native-expo/tsconfig.lib.json",
             "packageJson": "packages/react-native-expo/package.json",
-            "main": "packages/react-native-expo/src/index.ts",
+            "main": "packages/react-native-expo/index.ts",
             "assets": [
               "packages/react-native-expo/*.md",
               {
@@ -44,12 +45,12 @@
               },
               {
                 "input": "./packages/react-native-expo",
-                "glob": "collection.json",
+                "glob": "executors.json",
                 "output": "."
               },
               {
                 "input": "./packages/react-native-expo",
-                "glob": "builders.json",
+                "glob": "generators.json",
                 "output": "."
               }
             ]

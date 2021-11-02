@@ -1,0 +1,66 @@
+{
+  "builders": {
+    "run-ios": {
+      "implementation": "./src/builders/run-ios/run-ios/compat",
+      "schema": "./src/builders/run-ios/schema.json",
+      "description": "Runs iOS application."
+    },
+    "run-web": {
+      "implementation": "./src/builders/run-web/run-web/compat",
+      "schema": "./src/builders/run-web/schema.json",
+      "description": "Runs Web application."
+    },
+    "run-android": {
+      "implementation": "./src/builders/run-android/run-android/compat",
+      "schema": "./src/builders/run-android/schema.json",
+      "description": "Runs Android application."
+    },
+    "bundle": {
+      "implementation": "./src/builders/bundle/bundle/compat",
+      "schema": "./src/builders/bundle/schema.json",
+      "description": "Builds the JS bundle."
+    },
+    "start": {
+      "implementation": "./src/builders/start/start/compat",
+      "schema": "./src/builders/start/schema.json",
+      "description": "Starts the dev server for JS bundle."
+    },
+    "publish": {
+      "implementation": "./src/builders/publish/publish/compat",
+      "schema": "./src/builders/publish/schema.json",
+      "description": "Deploy a project to Expo hosting."
+    }
+  },
+  "executors": {
+    "run-ios": {
+      "implementation": "./src/builders/run-ios/run-ios.impl",
+      "schema": "./src/builders/run-ios/schema.json",
+      "description": "Runs iOS application."
+    },
+    "run-web": {
+      "implementation": "./src/builders/run-web/run-web.impl",
+      "schema": "./src/builders/run-web/schema.json",
+      "description": "Runs Web application."
+    },
+    "run-android": {
+      "implementation": "./src/builders/run-android/run-android.impl",
+      "schema": "./src/builders/run-android/schema.json",
+      "description": "Runs Android application."
+    },
+    "bundle": {
+      "implementation": "./src/builders/bundle/bundle.impl",
+      "schema": "./src/builders/bundle/schema.json",
+      "description": "Builds the JS bundle."
+    },
+    "start": {
+      "implementation": "./src/builders/start/start.impl",
+      "schema": "./src/builders/start/schema.json",
+      "description": "Starts the dev server for JS bundle."
+    },
+    "publish": {
+      "implementation": "./src/builders/publish/publish.impl",
+      "schema": "./src/builders/publish/schema.json",
+      "description": "Deploy a project to Expo hosting."
+    }
+  }
+}

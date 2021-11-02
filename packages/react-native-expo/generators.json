@@ -4,20 +4,19 @@
   "extends": ["@nrwl/react"],
   "schematics": {
     "init": {
-      "factory": "./src/schematics/init/init.impl",
+      "factory": "./src/schematics/init/init.impl#reactNativeInitSchematic",
       "schema": "./src/schematics/init/schema.json",
       "description": "Initialize the @nrwl/react-native plugin",
-      "aliases": ["ng-add"],
       "hidden": true
     },
     "application": {
-      "factory": "./src/schematics/application/application.impl",
+      "factory": "./src/schematics/application/application.impl#reactNativeApplicationSchematic",
       "schema": "./src/schematics/application/schema.json",
       "description": "Create an application",
       "aliases": ["app"]
     },
     "library": {
-      "factory": "./src/schematics/library/library.impl",
+      "factory": "./src/schematics/library/library.impl#reactNativeLibrarySchematic",
       "schema": "./src/schematics/library/schema.json",
       "description": "Create an library",
       "aliases": ["lib"]
