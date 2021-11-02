@@ -1,32 +1,32 @@
 {
   "builders": {
     "run-ios": {
-      "implementation": "./src/builders/run-ios/run-ios/compat",
+      "implementation": "./src/builders/run-ios/compat",
       "schema": "./src/builders/run-ios/schema.json",
       "description": "Runs iOS application."
     },
     "run-web": {
-      "implementation": "./src/builders/run-web/run-web/compat",
+      "implementation": "./src/builders/run-web/compat",
       "schema": "./src/builders/run-web/schema.json",
       "description": "Runs Web application."
     },
     "run-android": {
-      "implementation": "./src/builders/run-android/run-android/compat",
+      "implementation": "./src/builders/run-android/compat",
       "schema": "./src/builders/run-android/schema.json",
       "description": "Runs Android application."
     },
     "bundle": {
-      "implementation": "./src/builders/bundle/bundle/compat",
+      "implementation": "./src/builders/bundle/compat",
       "schema": "./src/builders/bundle/schema.json",
       "description": "Builds the JS bundle."
     },
     "start": {
-      "implementation": "./src/builders/start/start/compat",
+      "implementation": "./src/builders/start/compat",
       "schema": "./src/builders/start/schema.json",
       "description": "Starts the dev server for JS bundle."
     },
     "publish": {
-      "implementation": "./src/builders/publish/publish/compat",
+      "implementation": "./src/builders/publish/compat",
       "schema": "./src/builders/publish/schema.json",
       "description": "Deploy a project to Expo hosting."
     }
