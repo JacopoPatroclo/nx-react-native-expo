@@ -77,7 +77,7 @@ function createApplicationFiles(options: NormalizedSchema): Rule {
 }
 
 function updateNxJson(options: NormalizedSchema): Rule {
-  return updateJsonInTree<NxJson>('nx.json', (json) => {
+  return updateJsonInTree<NxJson>('workspace.json', (json) => {
     const parsedTags = options.tags
       ? options.tags.split(',').map((s) => s.trim())
       : [];
