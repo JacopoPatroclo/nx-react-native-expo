@@ -30,12 +30,12 @@
   },
   "peerDependencies": {
     "@nrwl/workspace": "*",
+    "@nrwl/jest": "*",
+    "@nrwl/react": "*",
+    "@nrwl/linter": "*",
     "react-native": "^0.63.0"
   },
   "dependencies": {
-    "@nrwl/jest": "12.10.0",
-    "@nrwl/react": "12.10.0",
-    "@nrwl/linter": "12.10.0",
     "chalk": "4.1.0",
     "metro-resolver": "0.63.0",
     "tsconfig-paths-webpack-plugin": "3.3.0"

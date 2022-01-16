@@ -1,21 +1,19 @@
 export const nxVersion = '*';
 
-export const reactVersion = '16.13.1';
-export const typesReactVersion = '16.9.35';
-export const reactNativeVersion =
-  'https://github.com/expo/react-native/archive/sdk-39.0.4.tar.gz';
+export const reactVersion = '17.0.1';
+export const typesReactVersion = '17.0.2';
+export const reactNativeVersion = '0.64.3';
 export const typesReactNativeVersion = '0.63.2';
-export const expoVersion = '39.0.2';
-export const expoStatusBarVersion = '1.0.2';
-export const reactDomVersion = '16.13.1';
-export const reactNativeWebVersion = '0.13.12';
-export const typesReactDomVersion = '16.9.8';
+export const expoVersion = '~44.0.0';
+export const expoStatusBarVersion = '~1.2.0';
+export const reactDomVersion = '17.0.1';
+export const reactNativeWebVersion = '0.17.1';
+export const typesReactDomVersion = '17.0.1';
 // TODO JM: Update this to 4.0.17
 export const expoCliVersion = '3.28.5';
 export const testingLibraryReactNativeVersion = '7.1.0';
 export const testingLibraryJestNativeVersion = '3.4.3';
-export const jestReactNativeVersion = '18.0.0';
 export const reactTestRendererVersion = '17.0.1';
-export const reactTestRendererTypesVersion = '16.9.3';
+export const reactTestRendererTypesVersion = '17.0.1';
 export const tsconfigPathWebpackPluginVersion = '3.3.0';
-export const expoWebpackConfigVersion = '0.12.43';
+export const expoWebpackConfigVersion = '0.16.16';
