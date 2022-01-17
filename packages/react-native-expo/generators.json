@@ -2,21 +2,21 @@
   "name": "Nx React Native expo",
   "version": "0.1",
   "extends": ["@nrwl/react"],
-  "schematics": {
+  "generators": {
     "init": {
-      "factory": "./src/schematics/init/init.impl#reactNativeInitSchematic",
+      "factory": "./src/schematics/init/init.impl",
       "schema": "./src/schematics/init/schema.json",
-      "description": "Initialize the @nrwl/react-native plugin",
+      "description": "Initialize the react-native-expo plugin",
       "hidden": true
     },
     "application": {
-      "factory": "./src/schematics/application/application.impl#reactNativeApplicationSchematic",
+      "factory": "./src/schematics/application/application.impl",
       "schema": "./src/schematics/application/schema.json",
       "description": "Create an application",
       "aliases": ["app"]
     },
     "library": {
-      "factory": "./src/schematics/library/library.impl#reactNativeLibrarySchematic",
+      "factory": "./src/schematics/library/library.impl",
       "schema": "./src/schematics/library/schema.json",
       "description": "Create an library",
       "aliases": ["lib"]

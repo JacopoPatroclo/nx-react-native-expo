@@ -14,6 +14,7 @@ export function addProject(host: Tree, options: NormalizedSchema) {
     sourceRoot: `${options.appProjectRoot}/src`,
     projectType: 'application',
     targets: { ...getTargets(options) },
+    tags: options.parsedTags,
   };
 
   addProjectConfiguration(host, options.projectName, {

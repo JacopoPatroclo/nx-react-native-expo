@@ -20,7 +20,6 @@ import {
 import { setDefaultCollection } from '@nrwl/workspace/src/utilities/set-default-collection';
 import { runTasksInSerial } from '@nrwl/workspace/src/utilities/run-tasks-in-serial';
 import {
-  convertNxGenerator,
   formatFiles,
   removeDependenciesFromPackageJson,
   Tree,
@@ -47,6 +46,7 @@ async function reactNativeExpoInitGenerator(host: Tree, schema: Schema) {
 
   return runTasksInSerial(...tasks);
 }
+
 export function updateDependencies(host: Tree) {
   return addDependenciesToPackageJson(
     host,
@@ -79,6 +79,3 @@ function moveDependency(host: Tree) {
 }
 
 export default reactNativeExpoInitGenerator;
-export const reactNativeInitSchematic = convertNxGenerator(
-  reactNativeExpoInitGenerator
-);

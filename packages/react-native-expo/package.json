@@ -22,13 +22,10 @@
     "url": "hhttps://github.com/JacopoPatroclo/nx-react-native-expo/issues"
   },
   "homepage": "https://nx.dev",
-  "builders": "./executors.json",
-  "schematics": "./generators.json",
-  "nx-migrate": {
-    "requirements": {},
-    "migrations": "./migrations.json"
-  },
+  "executors": "./executors.json",
+  "generators": "./generators.json",
   "peerDependencies": {
+    "@nrwl/devkit": "*",
     "@nrwl/workspace": "*",
     "@nrwl/jest": "*",
     "@nrwl/react": "*",

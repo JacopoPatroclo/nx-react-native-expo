@@ -1,8 +1,7 @@
 import { join } from 'path';
 import { ensureNodeModulesSymlink } from '../../utils/ensure-node-modules-symlink';
 import { fork } from 'child_process';
-import { toFileName } from '@nrwl/workspace';
-import { ExecutorContext } from '@nrwl/devkit';
+import { ExecutorContext, names } from '@nrwl/devkit';
 
 export interface ReactNativeBuildOptions {
   dev: boolean;
@@ -63,7 +62,7 @@ function runCliBuild(workspaceRoot, projectRoot, options) {
 function createBundleOptions(options) {
   return Object.keys(options).reduce((acc, _k) => {
     const v = options[_k];
-    const k = toFileName(_k);
+    const k = names(_k).fileName;
     if (v === undefined) return acc;
     if (k !== 'platform') {
       acc.push(`--${k}`, v);

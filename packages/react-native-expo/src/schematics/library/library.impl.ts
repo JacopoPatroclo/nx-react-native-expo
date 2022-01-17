@@ -1,4 +1,4 @@
-import { convertNxGenerator, GeneratorCallback, Tree } from '@nrwl/devkit';
+import { GeneratorCallback, Tree } from '@nrwl/devkit';
 import { libraryGenerator } from '@nrwl/react';
 
 async function reactNativeExpoInitGenerator(
@@ -14,6 +14,3 @@ async function reactNativeExpoInitGenerator(
 }
 
 export default reactNativeExpoInitGenerator;
-export const reactNativeLibrarySchematic = convertNxGenerator(
-  reactNativeExpoInitGenerator
-);

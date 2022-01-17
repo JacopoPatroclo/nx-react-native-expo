@@ -1,28 +1,23 @@
-import { appRootPath } from '@nrwl/workspace/src/utils/app-root';
-import { join } from 'path';
-import { resolveRequest } from './metro-resolver';
-import { workspaceLayout } from '@nrwl/workspace/src/core/file-utils';
-import { assetExts } from 'metro-config/src/defaults/defaults';
+import { appRootPath } from '@nrwl/tao/src/utils/app-root';
+import { getResolveRequest } from './metro-resolver';
 
-export function withNxMetro(config: any) {
-  const watchFolders = config.watchFolders || [];
-  const resolver = config.resolver || {};
-  const transformer = config.transformer || {};
+interface WithNxOptions {
+  debug?: boolean;
+  extensions?: string[];
+}
 
-  config.watchFolders = watchFolders.concat([
-    join(appRootPath, 'node_modules'),
-    join(appRootPath, workspaceLayout().libsDir),
-  ]);
+export function withNxMetro(config: any, opts: WithNxOptions = {}) {
+  const extensions = ['', 'ts', 'tsx', 'js', 'jsx', 'json'];
+  if (opts.debug) process.env.NX_REACT_NATIVE_EXPO_DEBUG = 'true';
+  if (opts.extensions) extensions.push(...opts.extensions);
 
+  // Set the root to workspace root so we can resolve modules and assets
+  config.projectRoot = appRootPath;
+
+  // Add support for paths specified by tsconfig
   config.resolver = {
-    ...resolver,
-    assetExts: [...assetExts, 'db'],
-    resolveRequest,
-  };
-
-  config.transformer = {
-    ...transformer,
-    enableBabelRCLookup: false,
+    ...config.resolver,
+    resolveRequest: getResolveRequest(extensions),
   };
 
   return config;

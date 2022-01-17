@@ -1,12 +1,10 @@
-import { Tree } from '@nrwl/tao/src/shared/tree';
-import { GeneratorCallback } from '@nrwl/tao/src/shared/workspace';
+import { Tree, GeneratorCallback } from '@nrwl/devkit';
 import { runTasksInSerial } from '@nrwl/workspace/src/utilities/run-tasks-in-serial';
 import { Schema } from './schema';
 import { normalizeOptions } from './libs/normalize-options';
 import { createApplicationFiles } from './libs/create-application-files';
 import { addProject } from './libs/add-project';
 import initGenerator from '../init/init.impl';
-import { convertNxGenerator } from '@nrwl/devkit';
 
 async function reactNativeApplicationGenerator(
   host: Tree,
@@ -23,6 +21,3 @@ async function reactNativeApplicationGenerator(
 }
 
 export default reactNativeApplicationGenerator;
-export const reactNativeApplicationSchematic = convertNxGenerator(
-  reactNativeApplicationGenerator
-);
