@@ -1,14 +1,9 @@
-import { BuilderContext, createBuilder } from '@angular-devkit/architect';
-import { JsonObject } from '@angular-devkit/core';
-import { from, Observable, throwError } from 'rxjs';
-import { catchError, switchMap, tap } from 'rxjs/operators';
-import { getProjectRoot } from '../../utils/get-project-root';
-import { platform } from 'os';
 import { fork } from 'child_process';
 import { join } from 'path';
 import { ensureNodeModulesSymlink } from '../../utils/ensure-node-modules-symlink';
+import { ExecutorContext } from '@nrwl/devkit';
 
-export interface ReactNativeDevServerOptions extends JsonObject {
+export interface ReactNativeDevServerOptions {
   host: string;
   port: number;
 }
@@ -18,31 +13,26 @@ export interface ReactNativeDevServerBuildOutput {
   success: boolean;
 }
 
-export default createBuilder<ReactNativeDevServerOptions>(run);
-
-function run(
+export default async function* run(
   options: ReactNativeDevServerOptions,
-  context: BuilderContext
-): Observable<ReactNativeDevServerBuildOutput> {
-  return from(getProjectRoot(context)).pipe(
-    tap((root) => ensureNodeModulesSymlink(context.workspaceRoot, root)),
-    switchMap((root) =>
-      from(runCliStart(context.workspaceRoot, root, options))
-    ),
-    catchError((err) => {
-      console.error(err);
-      return throwError(err);
-    }),
-    switchMap(
-      () =>
-        new Observable<ReactNativeDevServerBuildOutput>((obs) => {
-          obs.next({
-            baseUrl: `http://${options.host}:${options.port}`,
-            success: true,
-          });
-        })
-    )
-  );
+  context: ExecutorContext
+): AsyncGenerator<ReactNativeDevServerBuildOutput> {
+  const projectRoot = context.workspace.projects[context.projectName].root;
+  const root = context.root;
+
+  ensureNodeModulesSymlink(root, projectRoot);
+  try {
+    await runCliStart(root, projectRoot, options);
+    yield {
+      baseUrl: `http://${options.host}:${options.port}`,
+      success: true,
+    };
+  } finally {
+    yield {
+      baseUrl: '',
+      success: false,
+    };
+  }
 }
 
 function runCliStart(workspaceRoot, projectRoot, options) {

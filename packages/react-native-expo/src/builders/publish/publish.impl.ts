@@ -1,13 +1,9 @@
-import { BuilderContext, createBuilder } from '@angular-devkit/architect';
-import { JsonObject } from '@angular-devkit/core';
-import { from, Observable } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
 import { join } from 'path';
-import { getProjectRoot } from '../../utils/get-project-root';
 import { ensureNodeModulesSymlink } from '../../utils/ensure-node-modules-symlink';
 import { fork } from 'child_process';
+import { ExecutorContext } from '@nrwl/devkit';
 
-export interface ReactNativePublishOptions extends JsonObject {
+export interface ReactNativePublishOptions {
   plreleaseChannel: string;
   maxWorkers: number;
 }
@@ -16,21 +12,24 @@ export interface ReactNativePublishOutput {
   success: boolean;
 }
 
-export default createBuilder<ReactNativePublishOptions>(run);
-
-function run(
+export default async function* run(
   options: ReactNativePublishOptions,
-  context: BuilderContext
-): Observable<ReactNativePublishOutput> {
-  return from(getProjectRoot(context)).pipe(
-    tap((root) => ensureNodeModulesSymlink(context.workspaceRoot, root)),
-    switchMap((root) => runCliBuild(context.workspaceRoot, root, options)),
-    map(() => {
-      return {
-        success: true,
-      };
-    })
-  );
+  context: ExecutorContext
+): AsyncGenerator<ReactNativePublishOutput> {
+  const projectRoot = context.workspace.projects[context.projectName].root;
+  const root = context.root;
+
+  ensureNodeModulesSymlink(root, projectRoot);
+  try {
+    await runCliBuild(root, projectRoot, options);
+    yield {
+      success: true,
+    };
+  } finally {
+    yield {
+      success: false,
+    };
+  }
 }
 
 function runCliBuild(workspaceRoot, projectRoot, options) {

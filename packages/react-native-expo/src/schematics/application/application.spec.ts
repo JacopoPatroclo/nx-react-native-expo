@@ -1,50 +1,59 @@
-import { Tree } from '@angular-devkit/schematics';
-import { createEmptyWorkspace } from '@nrwl/workspace/testing';
-import * as stripJsonComments from 'strip-json-comments';
-import { NxJson, readJsonInTree } from '@nrwl/workspace';
-import { runSchematic } from '../../utils/testing';
+import { createTreeWithEmptyWorkspace } from '@nrwl/devkit/testing';
+import {
+  getProjects,
+  readWorkspaceConfiguration,
+  Tree,
+  getWorkspaceLayout,
+  readJson,
+} from '@nrwl/devkit';
+import appGenerator from './application.impl';
 
 describe('app', () => {
   let appTree: Tree;
 
   beforeEach(() => {
-    appTree = Tree.empty();
-    appTree = createEmptyWorkspace(appTree);
+    appTree = createTreeWithEmptyWorkspace(1);
+    appTree.write('.gitignore', '');
   });
 
   it('should update workspace.json', async () => {
-    const tree = await runSchematic('app', { name: 'myApp' }, appTree);
-    const workspaceJson = readJsonInTree(tree, '/workspace.json');
+    await appGenerator(appTree, {
+      name: 'myApp',
+      skipFormat: false,
+      unitTestRunner: 'jest',
+    });
+    const workspaceJson = readWorkspaceConfiguration(appTree);
+    const projects = getProjects(appTree);
 
-    expect(workspaceJson.projects['my-app'].root).toEqual('apps/my-app');
+    expect(projects.get('my-app').root).toEqual('apps/my-app');
     expect(workspaceJson.defaultProject).toEqual('my-app');
   });
 
   it('should update nx.json', async () => {
-    const tree = await runSchematic(
-      'app',
-      { name: 'myApp', tags: 'one,two' },
-      appTree
-    );
-    const nxJson = readJsonInTree<NxJson>(tree, '/nx.json');
-    expect(nxJson).toMatchObject({
-      npmScope: 'proj',
-      projects: {
-        'my-app': {
-          tags: ['one', 'two'],
-        },
-      },
+    await appGenerator(appTree, {
+      name: 'myApp',
+      tags: 'one,two',
+      skipFormat: false,
+      unitTestRunner: 'jest',
     });
+    const nxJson = getWorkspaceLayout(appTree);
+    expect(nxJson.npmScope).toBe('proj');
+
+    const project = getProjects(appTree).get('my-app');
+    expect(project.tags).toStrictEqual(['one', 'two']);
   });
 
   it('should generate files', async () => {
-    const tree = await runSchematic('app', { name: 'myApp' }, appTree);
-    expect(tree.exists('apps/my-app/App.tsx')).toBeTruthy();
-    expect(tree.exists('apps/my-app/index.js')).toBeTruthy();
+    await appGenerator(appTree, {
+      name: 'myApp',
+      skipFormat: false,
+      unitTestRunner: 'jest',
+    });
 
-    const tsconfig = readJsonInTree(tree, 'apps/my-app/tsconfig.json');
+    expect(appTree.exists('apps/my-app/App.tsx')).toBeTruthy();
+    expect(appTree.exists('apps/my-app/index.js')).toBeTruthy();
+
+    const tsconfig = readJson(appTree, 'apps/my-app/tsconfig.json');
     expect(tsconfig.extends).toEqual('../../tsconfig.base.json');
-
-    expect(tree.exists('apps/my-app/.eslintrc')).toBe(true);
   });
 });

@@ -1,11 +1,16 @@
-import { chain, externalSchematic, Rule } from '@angular-devkit/schematics';
+import { GeneratorCallback, Tree } from '@nrwl/devkit';
+import { libraryGenerator } from '@nrwl/react';
 
-export default function (options: any): Rule {
-  return chain([
-    externalSchematic('@nrwl/react', 'library', {
-      ...options,
-      component: false,
-      style: 'none',
-    }),
-  ]);
+async function reactNativeExpoInitGenerator(
+  host: Tree,
+  schema: any
+): Promise<GeneratorCallback> {
+  await libraryGenerator(host, {
+    ...schema,
+    component: false,
+    style: 'none',
+  });
+  return;
 }
+
+export default reactNativeExpoInitGenerator;

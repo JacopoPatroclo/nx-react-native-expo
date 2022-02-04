@@ -1,6 +1,5 @@
 {
-  "$schema": "@angular-devkit/architect/src/builders-schema.json",
-  "builders": {
+  "executors": {
     "run-ios": {
       "implementation": "./src/builders/run-ios/run-ios.impl",
       "schema": "./src/builders/run-ios/schema.json",
@@ -30,6 +29,6 @@
       "implementation": "./src/builders/publish/publish.impl",
       "schema": "./src/builders/publish/schema.json",
       "description": "Deploy a project to Expo hosting."
-    }    
+    }
   }
 }

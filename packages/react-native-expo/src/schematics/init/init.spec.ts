@@ -1,20 +1,27 @@
-import { Tree } from '@angular-devkit/schematics';
-import { createEmptyWorkspace } from '@nrwl/workspace/testing';
-import { readJsonInTree } from '@nrwl/workspace';
-import { updateJsonInTree } from '@nrwl/workspace';
-import { runSchematic, callRule } from '../../utils/testing';
+import { createTreeWithEmptyWorkspace } from '@nrwl/devkit/testing';
+import {
+  Tree,
+  updateWorkspaceConfiguration,
+  readJson,
+  readWorkspaceConfiguration,
+} from '@nrwl/devkit';
+import initGenerator from './init.impl';
 
 describe('init', () => {
   let tree: Tree;
 
   beforeEach(() => {
-    tree = Tree.empty();
-    tree = createEmptyWorkspace(tree);
+    tree = createTreeWithEmptyWorkspace(2);
+    tree.write('.gitignore', '');
   });
 
   it('should add react dependencies', async () => {
-    const result = await runSchematic('init', {}, tree);
-    const packageJson = readJsonInTree(result, 'package.json');
+    await initGenerator(tree, {
+      skipFormat: false,
+      appProjectRoot: 'apps',
+      unitTestRunner: 'jest',
+    });
+    const packageJson = readJson(tree, 'package.json');
     expect(packageJson.dependencies['@nrwl/react']).toBeUndefined();
     expect(packageJson.dependencies['react']).toBeDefined();
     expect(packageJson.dependencies['react-native']).toBeDefined();
@@ -25,26 +32,28 @@ describe('init', () => {
 
   describe('defaultCollection', () => {
     it('should be set if none was set before', async () => {
-      const result = await runSchematic('init', {}, tree);
-      const workspaceJson = readJsonInTree(result, 'workspace.json');
-      expect(workspaceJson.cli.defaultCollection).toEqual('@nrwl/react-native');
+      await initGenerator(tree, {
+        skipFormat: false,
+        appProjectRoot: 'apps',
+        unitTestRunner: 'jest',
+      });
+      const workspaceJson = readWorkspaceConfiguration(tree);
+      expect(workspaceJson.cli.defaultCollection).toEqual(
+        'nx-react-native-expo'
+      );
     });
 
     it('should not be set if something else was set before', async () => {
-      tree = await callRule(
-        updateJsonInTree('workspace.json', (json) => {
-          json.cli = {
-            defaultCollection: '@nrwl/react',
-          };
-
-          json.schematics = {};
-
-          return json;
-        }),
-        tree
-      );
-      const result = await runSchematic('init', {}, tree);
-      const workspaceJson = readJsonInTree(result, 'workspace.json');
+      updateWorkspaceConfiguration(tree, {
+        version: 1,
+        cli: { defaultCollection: '@nrwl/react', packageManager: 'npm' },
+      });
+      await initGenerator(tree, {
+        skipFormat: false,
+        appProjectRoot: 'apps',
+        unitTestRunner: 'jest',
+      });
+      const workspaceJson = readWorkspaceConfiguration(tree);
       expect(workspaceJson.cli.defaultCollection).toEqual('@nrwl/react');
     });
   });

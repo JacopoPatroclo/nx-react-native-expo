@@ -1,6 +1,6 @@
 {
   "name": "nx-react-native-expo",
-  "version": "0.0.9",
+  "version": "0.12.0",
   "description": "Expo Managed Plugin for Nx",
   "repository": {
     "type": "git",
@@ -22,20 +22,17 @@
     "url": "hhttps://github.com/JacopoPatroclo/nx-react-native-expo/issues"
   },
   "homepage": "https://nx.dev",
-  "builders": "./builders.json",
-  "schematics": "./collection.json",
-  "nx-migrate": {
-    "requirements": {},
-    "migrations": "./migrations.json"
-  },
+  "executors": "./executors.json",
+  "generators": "./generators.json",
   "peerDependencies": {
+    "@nrwl/devkit": "*",
     "@nrwl/workspace": "*",
+    "@nrwl/jest": "*",
+    "@nrwl/react": "*",
+    "@nrwl/linter": "*",
     "react-native": "^0.63.0"
   },
   "dependencies": {
-    "@nrwl/jest": "10.4.4",
-    "@nrwl/react": "10.4.4",
-    "@nrwl/linter": "10.4.4",
     "chalk": "4.1.0",
     "metro-resolver": "0.63.0",
     "tsconfig-paths-webpack-plugin": "3.3.0"

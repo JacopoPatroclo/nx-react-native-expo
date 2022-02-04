@@ -1,14 +1,9 @@
-import { BuilderContext, createBuilder } from '@angular-devkit/architect';
-import { JsonObject } from '@angular-devkit/core';
-import { from, Observable } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
 import { join } from 'path';
-import { getProjectRoot } from '../../utils/get-project-root';
 import { ensureNodeModulesSymlink } from '../../utils/ensure-node-modules-symlink';
 import { fork } from 'child_process';
-import { toFileName } from '@nrwl/workspace';
+import { ExecutorContext, names } from '@nrwl/devkit';
 
-export interface ReactNativeBuildOptions extends JsonObject {
+export interface ReactNativeBuildOptions {
   dev: boolean;
   platform: string;
   entryFile: string;
@@ -21,28 +16,31 @@ export interface ReactNativeBuildOutput {
   success: boolean;
 }
 
-export default createBuilder<ReactNativeBuildOptions>(run);
-
-function run(
+export default async function* run(
   options: ReactNativeBuildOptions,
-  context: BuilderContext
-): Observable<ReactNativeBuildOutput> {
-  return from(getProjectRoot(context)).pipe(
-    tap((root) => ensureNodeModulesSymlink(context.workspaceRoot, root)),
-    switchMap((root) => runCliBuild(context.workspaceRoot, root, options)),
-    map(() => {
-      return {
-        success: true,
-      };
-    })
-  );
+  context: ExecutorContext
+): AsyncGenerator<ReactNativeBuildOutput> {
+  const projectRoot = context.workspace.projects[context.projectName].root;
+  const root = context.root;
+
+  ensureNodeModulesSymlink(root, projectRoot);
+  try {
+    await runCliBuild(root, projectRoot, options);
+    yield {
+      success: true,
+    };
+  } finally {
+    yield {
+      success: false,
+    };
+  }
 }
 
 function runCliBuild(workspaceRoot, projectRoot, options) {
   return new Promise((resolve, reject) => {
     const cliOptions = createBundleOptions(options);
     const platform = sanitizePlatform(options);
-    console.log(cliOptions);
+
     const cp = fork(
       join(workspaceRoot, '/node_modules/expo/bin/cli.js'),
       [`build:${platform}`, ...cliOptions],
@@ -64,7 +62,7 @@ function runCliBuild(workspaceRoot, projectRoot, options) {
 function createBundleOptions(options) {
   return Object.keys(options).reduce((acc, _k) => {
     const v = options[_k];
-    const k = toFileName(_k);
+    const k = names(_k).fileName;
     if (v === undefined) return acc;
     if (k !== 'platform') {
       acc.push(`--${k}`, v);
